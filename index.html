@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Offline vehicle registration spreadsheet lookup">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Vehicle Lookup">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Vehicle Registration Lookup</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">VR</div>
+        <div><h1>Vehicle Registration Lookup</h1><p class="subtitle">Local spreadsheet search</p></div>
+      </div>
+      <button id="installBtn" class="btn btn-secondary hidden" type="button">Install app</button>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section id="compatBanner" class="notice notice-info hidden" role="status"></section>
+
+    <section class="data-panel card">
+      <div class="data-summary">
+        <div>
+          <div class="eyebrow">ACTIVE DATABASE</div>
+          <div id="datasetTitle" class="dataset-title">No spreadsheet loaded</div>
+          <div id="datasetMeta" class="dataset-meta">Import an .xlsx file to begin.</div>
+        </div>
+        <div class="privacy-pill" title="Spreadsheet contents are processed locally in this browser"><span class="privacy-dot"></span> Local only</div>
+      </div>
+      <div class="actions">
+        <label class="btn btn-primary file-button" for="fileInput">Import spreadsheet<input id="fileInput" type="file" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label>
+        <button id="clearBtn" class="btn btn-ghost" type="button">Clear database</button>
+      </div>
+      <div id="importProgress" class="progress-row hidden" aria-live="polite"><div class="spinner" aria-hidden="true"></div><span id="importProgressText">Reading spreadsheet…</span></div>
+    </section>
+
+    <section class="search-section">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.4-4.4m2.4-5.1a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+        <input id="searchInput" class="search-input" type="search" inputmode="search" autocomplete="off" autocapitalize="characters" placeholder="Search plate, name, sticker, vehicle…" aria-label="Search registrations">
+        <button id="clearSearchBtn" class="icon-btn hidden" type="button" aria-label="Clear search">×</button>
+      </div>
+      <div id="filterBar" class="filter-bar" aria-label="Category filters"></div>
+      <div class="result-toolbar"><div id="resultCount">0 registrations</div><div id="searchHint" class="muted">Partial searches work automatically.</div></div>
+    </section>
+
+    <section id="emptyState" class="empty-state card">
+      <div class="empty-icon" aria-hidden="true">⌕</div>
+      <h2>Ready for your registration spreadsheet</h2>
+      <p>Import the current Excel workbook. Searches run locally and can match partial names, plates, sticker numbers, vehicle details, departments, contacts, and parking information.</p>
+    </section>
+    <section id="results" class="results" aria-live="polite"></section>
+    <div id="limitNote" class="limit-note hidden"></div>
+  </main>
+
+  <dialog id="recordDialog" class="record-dialog">
+    <div class="dialog-head"><div><div id="dialogCategory" class="eyebrow"></div><h2 id="dialogName">Registration</h2></div><button id="dialogCloseBtn" class="icon-btn dialog-close" type="button" aria-label="Close">×</button></div>
+    <div id="dialogFormerBadge" class="former-banner hidden">FORMER / INACTIVE RECORD</div>
+    <div class="plate-block"><div class="label">License plate</div><div id="dialogPlate" class="plate-large">—</div><button id="copyPlateBtn" class="btn btn-secondary btn-small" type="button">Copy plate</button></div>
+    <div id="dialogFields" class="detail-grid"></div>
+    <div class="dialog-actions"><button id="dialogDoneBtn" class="btn btn-primary" type="button">Done</button></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="xlsx-parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
