@@ -1,0 +1,15 @@
+{
+  "name":"Vehicle Registration Lookup",
+  "short_name":"Vehicle Lookup",
+  "description":"Offline local search for vehicle registration spreadsheets",
+  "id":"./",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#f1f5f9",
+  "theme_color":"#0f172a",
+  "orientation":"any",
+  "icons":[
+    {"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
